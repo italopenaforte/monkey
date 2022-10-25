@@ -23,8 +23,8 @@ func TestLetStatement(t *testing.T) {
 		t.Fatalf("ParseProgram() returned nil")
 	}
 
-	if len(program.Statement) != 3 {
-		t.Fatalf("program.Statements does not contain 3 statements. got=%d", len(program.Statement))
+	if len(program.Statements) != 3 {
+		t.Fatalf("program.Statements does not contain 3 statements. got=%d", len(program.Statements))
 	}
 
 	tests := []struct {
@@ -36,7 +36,7 @@ func TestLetStatement(t *testing.T) {
 	}
 
 	for index, tt := range tests {
-		stmt := program.Statement[index]
+		stmt := program.Statements[index]
 		if !testLetStatement(t, stmt, tt.expectedIdentifier) {
 			return
 		}
