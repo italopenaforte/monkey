@@ -111,6 +111,7 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 		return nil
 	}
 	lit.Value = value
+	defer untrace(trace("parseIntegerLiteral " + fmt.Sprint(lit.Value)))
 	return lit
 }
 
@@ -123,7 +124,7 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 	p.NextToken()
 
 	expression.Right = p.parseExpression(PREFIX)
-
+	defer untrace(trace("parsePrefixExpression " + expression.Token.Literal))
 	return expression
 }
 
@@ -137,7 +138,7 @@ func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 	precedence := p.curPrecedence()
 	p.NextToken()
 	expression.Right = p.parseExpression(precedence)
-
+	defer untrace(trace("parseInfixExpression " + expression.Token.Literal))
 	return expression
 }
 
@@ -160,13 +161,13 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 	if p.peekTokenIs(token.SEMICOLON) {
 		p.NextToken()
 	}
-
+	defer untrace(trace("parseExpressionStatement " + stmt.TokenLiteral()))
 	return stmt
 }
 
 func (p *Parser) parseExpression(precedence int) ast.Expression {
+	defer untrace(trace("parseExpression "))
 	prefix := p.prefixParseFns[p.curToken.Type]
-
 	if prefix == nil {
 		p.noPrefixParseFnError(p.curToken.Type)
 		return nil
@@ -184,7 +185,6 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 
 		leftExp = infix(leftExp)
 	}
-
 	return leftExp
 }
 
