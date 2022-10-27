@@ -6,7 +6,7 @@ import (
 	"github.com/italopenaforte/monkey/token"
 )
 
-func TestStrin(t *testing.T) {
+func TestString(t *testing.T) {
 	program := &Program{
 		Statements: []Statement{
 			&LetStatement{
