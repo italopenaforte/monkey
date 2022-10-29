@@ -55,6 +55,8 @@ const (
 
 	EQ     = "=="
 	NOT_EQ = "!="
+
+	STRING = "STRING"
 )
 
 func LookupIdent(ident string) TokenType {
