@@ -292,3 +292,30 @@ func TestFunctionApplication(t *testing.T) {
 		testIntegerObject(t, testEval(tt.input), tt.expected)
 	}
 }
+
+func TestClosures(t *testing.T) {
+	input := `
+	let newAdder = fn(x) {
+		fn(y) { x + y };
+	};
+
+	let addTwo = newAdder(2);
+
+	addTwo(2);`
+	testIntegerObject(t, testEval(input), 4)
+}
+
+func TestRecursive(t *testing.T) {
+	input := `
+	let counter = fn(x) {
+		if (x > 100) {
+			return true;
+		} else {
+			let foobar = 9999;
+			counter(x + 1);
+		}
+	};
+	counter(10000);`
+
+	testBooleanObject(t, testEval(input), true)
+}
