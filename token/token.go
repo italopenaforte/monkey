@@ -43,6 +43,8 @@ const (
 	RPAREN    = ")"
 	LBRACE    = "{"
 	RBRACE    = "}"
+	LBRACKET  = "["
+	RBRACKET  = "]"
 
 	// Keywords
 	FUNCTION = "FUNCTION"
@@ -57,6 +59,7 @@ const (
 	NOT_EQ = "!="
 
 	STRING = "STRING"
+	COLON  = ":"
 )
 
 func LookupIdent(ident string) TokenType {
